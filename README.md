@@ -1,1 +1,1 @@
-# Weather-Board-API
+Weather Board API
