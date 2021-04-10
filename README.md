@@ -5,3 +5,5 @@ After you are done using the website, even after refreshing the page the website
 
 Link to website: https://niaskaa.github.io/Weather-Board-API/
 Link to repo: https://github.com/NIASKAA/Weather-Board-API
+
+![alt text](screenshot/Demo.png "Demo")
