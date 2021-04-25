@@ -1,36 +1,41 @@
+document.body.style.backgroundImage = "url('./images/background1.jpeg')";
+document.body.style.backgroundRepeat = "no-repeat";
+document.body.style.backgroundSize = "cover";
+
 window.addEventListener('load', function () {
   // Grab the existing history from local storage IF it exists
-  var existingHistory;
+  let existingHistory;
   if (!JSON.parse(localStorage.getItem('history'))) {
     existingHistory = [];
   } else {
     existingHistory = JSON.parse(localStorage.getItem('history'));
   }
 
-  var historyItems = [];
+  let historyItems = [];
 
   // Function to get the forecast, loop through only the days of the week and render data to the page
-  function getForecast(searchValue) {
+  getForecast = (searchValue) => {
     if (!searchValue) {
       return;
     }
-    var endpoint = `http://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=d91f911bcf2c0f925fb6535547a5ddc9&units=imperial`;
-    fetch(endpoint)
+
+    let apiKey = `http://api.openweathermap.org/data/2.5/forecast?q=${searchValue}&appid=875237a179f3849c7b98272538507d81&units=imperial`;
+    fetch(apiKey)
       .then((res) => res.json())
       .then((data) => {
         // Select our forecast element and add a header to it
-        var forecastEl = document.querySelector('#forecast');
-        forecastEl.innerHTML = '<h4 class="mt-3">5-Day Forecast:</h4>';
+        let forecastEl = document.querySelector('#forecast');
+        forecastEl.innerHTML = '<h4 class="mt-3"></h4>';
 
         // Create a div and give it a class of row
         forecastRowEl = document.createElement('div');
         forecastRowEl.className = '"row"';
 
-        // Loop over all forecasts (by 3-hour increments)
+        // Loop for 5 times to make the display 5 cards
         for (var i = 0; i < data.list.length; i++) {
           // Only look at forecasts around 3:00pm
           if (data.list[i].dt_txt.indexOf('15:00:00') !== -1) {
-            // Create HTML elements for a bootstrap card
+            // Make cards to display info
             var colEl = document.createElement('div');
             colEl.classList.add('col-md-2');
             var cardEl = document.createElement('div');
@@ -78,7 +83,7 @@ window.addEventListener('load', function () {
   // Helper function to fetch and display the UV index
   function getUVIndex(lat, lon) {
     fetch(
-      `http://api.openweathermap.org/data/2.5/uvi?appid=d91f911bcf2c0f925fb6535547a5ddc9&lat=${lat}&lon=${lon}`
+      `http://api.openweathermap.org/data/2.5/uvi?appid=875237a179f3849c7b98272538507d81&lat=${lat}&lon=${lon}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -120,8 +125,8 @@ window.addEventListener('load', function () {
 
   // Function that preforms the actual API request and creates elements to render to the page
   function searchWeather(searchValue) {
-    var endpoint = `http://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=d91f911bcf2c0f925fb6535547a5ddc9&units=imperial`;
-    fetch(endpoint)
+    var apiKey = `http://api.openweathermap.org/data/2.5/weather?q=${searchValue}&appid=875237a179f3849c7b98272538507d81&units=imperial`;
+    fetch(apiKey)
       .then((res) => res.json())
       .then((data) => {
         // Invoke our history method
