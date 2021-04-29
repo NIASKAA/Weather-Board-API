@@ -24,57 +24,57 @@ window.addEventListener('load', function () {
       .then((res) => res.json())
       .then((data) => {
         // Select our forecast element and add a header to it
-        let forecastEl = document.querySelector('#forecast');
-        forecastEl.innerHTML = '<h4 class="mt-3"></h4>';
+        let forecast = document.querySelector('#forecast');
+        forecast.innerHTML = '<h4 class="mt-3"></h4>';
 
         // Create a div and give it a class of row
-        forecastRowEl = document.createElement('div');
-        forecastRowEl.className = '"row"';
+        forecastRow = document.createElement('div');
+        forecastRow.className = '"row"';
 
         // Loop for 5 times to make the display 5 cards
-        for (var i = 0; i < data.list.length; i++) {
+        for (let i = 0; i < data.list.length; i++) {
           // Only look at forecasts around 3:00pm
           if (data.list[i].dt_txt.indexOf('15:00:00') !== -1) {
             // Make cards to display info
-            var colEl = document.createElement('div');
-            colEl.classList.add('col-md-2');
-            var cardEl = document.createElement('div');
-            cardEl.classList.add('card', 'bg-primary', 'text-white');
-            var windEl = document.createElement('p');
-            windEl.classList.add('card-text');
-            windEl.textContent = `Wind Speed: ${data.list[i].wind.speed} MPH`;
-            var humidityEl = document.createElement('p');
-            humidityEl.classList.add('card-text');
-            humidityEl.textContent = `Humidity : ${data.list[i].main.humidity} %`;
-            var bodyEl = document.createElement('div');
-            bodyEl.classList.add('card-body', 'p-2');
-            var titleEl = document.createElement('h5');
-            titleEl.classList.add('card-title');
-            titleEl.textContent = new Date(
+            let col = document.createElement('div');
+            col.classList.add('col-md-2');
+            let card = document.createElement('div');
+            card.classList.add('card', 'bg-primary', 'text-white');
+            let wind = document.createElement('p');
+            wind.classList.add('card-text');
+            wind.textContent = `Wind Speed: ${data.list[i].wind.speed} MPH`;
+            let humidity = document.createElement('p');
+            humidity.classList.add('card-text');
+            humidity.textContent = `Humidity : ${data.list[i].main.humidity} %`;
+            let body = document.createElement('div');
+            body.classList.add('card-body', 'p-2');
+            let title = document.createElement('h5');
+            title.classList.add('card-title');
+            title.textContent = new Date(
               data.list[i].dt_txt
             ).toLocaleDateString();
-            var imgEl = document.createElement('img');
-            imgEl.setAttribute(
+            let img = document.createElement('img');
+            img.setAttribute(
               'src',
               `http://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`
             );
-            var p1El = document.createElement('p');
-            p1El.classList.add('card-text');
-            p1El.textContent = `Temp: ${data.list[i].main.temp_max} °F`;
-            var p2El = document.createElement('p');
-            p2El.classList.add('card-text');
-            p2El.textContent = `Humidity: ${data.list[i].main.humidity}%`;
+            let p1 = document.createElement('p');
+            p1.classList.add('card-text');
+            p1.textContent = `Temp: ${data.list[i].main.temp_max} °F`;
+            let p2 = document.createElement('p');
+            p2.classList.add('card-text');
+            p2.textContent = `Humidity: ${data.list[i].main.humidity}%`;
 
             // Merge together and put on page
-            colEl.appendChild(cardEl);
-            bodyEl.appendChild(titleEl);
-            bodyEl.appendChild(imgEl);
-            bodyEl.appendChild(windEl);
-            bodyEl.appendChild(humidityEl);
-            bodyEl.appendChild(p1El);
-            bodyEl.appendChild(p2El);
-            cardEl.appendChild(bodyEl);
-            forecastEl.appendChild(colEl);
+            col.appendChild(card);
+            body.appendChild(title);
+            body.appendChild(img);
+            body.appendChild(wind);
+            body.appendChild(humidity);
+            body.appendChild(p1);
+            body.appendChild(p2);
+            card.appendChild(body);
+            forecast.appendChild(col);
           }
         }
       });
@@ -87,13 +87,13 @@ window.addEventListener('load', function () {
     )
       .then((res) => res.json())
       .then((data) => {
-        var bodyEl = document.querySelector('.card-body');
-        var uvEl = document.createElement('p');
-        uvEl.id = 'uv';
-        uvEl.textContent = 'UV Index: ';
-        var buttonEl = document.createElement('span');
-        buttonEl.classList.add('btn', 'btn-sm');
-        buttonEl.innerHTML = data.value;
+        let body = document.querySelector('.card-body');
+        let uvIndex = document.createElement('p');
+        uvIndex.id = 'uv';
+        uvIndex.textContent = 'UV Index: ';
+        let button = document.createElement('span');
+        button.classList.add('btn', 'btn-sm');
+        button.innerHTML = data.value;
 
         switch (data.value) {
           case data.value < 3:
@@ -106,17 +106,16 @@ window.addEventListener('load', function () {
             buttonEl.classList.add('btn-danger');
         }
 
-        bodyEl.appendChild(uvEl);
-        uvEl.appendChild(buttonEl);
+        body.appendChild(uvIndex);
+        uvIndex.appendChild(button);
       });
   }
 
   const handleHistory = (term) => {
     if (existingHistory && existingHistory.length > 0) {
-      var existingEntries = JSON.parse(localStorage.getItem('history'));
-      var newHistory = [...existingEntries, term];
+      let existingEntries = JSON.parse(localStorage.getItem('history'));
+      let newHistory = [...existingEntries, term];
       localStorage.setItem('history', JSON.stringify(newHistory));
-      // If there is no history, create one with the searchValue and save it localStorage
     } else {
       historyItems.push(term);
       localStorage.setItem('history', JSON.stringify(historyItems));
@@ -129,46 +128,46 @@ window.addEventListener('load', function () {
     fetch(apiKey)
       .then((res) => res.json())
       .then((data) => {
-        // Invoke our history method
+        // Call for history method
         if (!existingHistory.includes(searchValue)) {
           handleHistory(searchValue);
         }
-        // Clear any old content
-        todayEl = document.querySelector('#today');
-        todayEl.textContent = ' ';
+        // Clear content
+        today = document.querySelector('#today');
+        today.textContent = ' ';
 
         // Create html content for current weather
-        var titleEl = document.createElement('h3');
-        titleEl.classList.add('card-title');
-        titleEl.textContent = `${
+        let title = document.createElement('h3');
+        title.classList.add('card-title');
+        title.textContent = `${
           data.name
         } (${new Date().toLocaleDateString()})`;
-        var cardEl = document.createElement('div');
-        cardEl.classList.add('card');
-        var windEl = document.createElement('p');
-        windEl.classList.add('card-text');
-        var humidEl = document.createElement('p');
-        humidEl.classList.add('card-text');
-        var tempEl = document.createElement('p');
-        tempEl.classList.add('card-text');
-        humidEl.textContent = `Humidity: ${data.main.humidity} %`;
-        tempEl.textContent = `Temperature: ${data.main.temp} °F`;
-        var cardBodyEl = document.createElement('div');
-        cardBodyEl.classList.add('card-body');
-        var imgEl = document.createElement('img');
-        imgEl.setAttribute(
+        let card = document.createElement('div');
+        card.classList.add('card');
+        let wind = document.createElement('p');
+        wind.classList.add('card-text');
+        let humid = document.createElement('p');
+        humid.classList.add('card-text');
+        let temp = document.createElement('p');
+        temp.classList.add('card-text');
+        humid.textContent = `Humidity: ${data.main.humidity} %`;
+        temp.textContent = `Temperature: ${data.main.temp} °F`;
+        let cardBody = document.createElement('div');
+        cardBody.classList.add('card-body', 'bg-primary', 'text-white');
+        let img = document.createElement('img');
+        img.setAttribute(
           'src',
           `http://openweathermap.org/img/w/${data.weather[0].icon}.png`
         );
 
         // Append all the content that we created
-        titleEl.appendChild(imgEl);
-        cardBodyEl.appendChild(titleEl);
-        cardBodyEl.appendChild(tempEl);
-        cardBodyEl.appendChild(humidEl);
-        cardBodyEl.appendChild(windEl);
-        cardEl.appendChild(cardBodyEl);
-        todayEl.appendChild(cardEl);
+        title.appendChild(img);
+        cardBody.appendChild(title);
+        cardBody.appendChild(temp);
+        cardBody.appendChild(humid);
+        cardBody.appendChild(wind);
+        card.appendChild(cardBody);
+        today.appendChild(card);
 
         // Invoke our forecast and UV functions
         getForecast(searchValue);
@@ -179,19 +178,19 @@ window.addEventListener('load', function () {
   // Helper function to create a new row
   function makeRow(searchValue) {
     // Create a new `li` element and add classes/text to it
-    var liEl = document.createElement('li');
-    liEl.classList.add('list-group-item', 'list-group-item-action');
-    liEl.id = searchValue;
-    var text = searchValue;
-    liEl.textContent = text;
+    let liTag = document.createElement('li');
+    liTag.classList.add('list-group-item', 'list-group-item-action');
+    liTag.id = searchValue;
+    let text = searchValue;
+    liTag.textContent = text;
 
     // Select the history element and add an event to it
-    liEl.addEventListener('click', (e) => {
+    liTag.addEventListener('click', (e) => {
       if (e.target.tagName === 'LI') {
         searchWeather(e.target.textContent);
       }
     });
-    document.getElementById('history').appendChild(liEl);
+    document.getElementById('history').appendChild(liTag);
   }
 
   // Render existing history to the page.
@@ -201,7 +200,7 @@ window.addEventListener('load', function () {
 
   // Helper function to get a search value.
   function getSearchVal() {
-    var searchValue = document.querySelector('#search-value').value;
+    let searchValue = document.querySelector('#search-value').value;
     if (searchValue) {
       searchWeather(searchValue);
       makeRow(searchValue);
