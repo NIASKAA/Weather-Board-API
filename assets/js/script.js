@@ -113,7 +113,7 @@ window.addEventListener('load', function () {
 
 
   function searchMain (weatherValue) {
-    var apiKey = `https://api.openweathermap.org/data/2.5/weather?q=${weatherValue}&appid=875237a179f3849c7b98272538507d81&units=imperial`;
+    let apiKey = `https://api.openweathermap.org/data/2.5/weather?q=${weatherValue}&appid=875237a179f3849c7b98272538507d81&units=imperial`;
     fetch(apiKey)
       .then((res) => res.json())
       .then((data) => {
