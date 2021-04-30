@@ -13,7 +13,7 @@ window.addEventListener('load', function () {
       return;
     }
 
-    let apiKey = `http://api.openweathermap.org/data/2.5/forecast?q=${weatherValue}&appid=875237a179f3849c7b98272538507d81&units=imperial`;
+    let apiKey = `https://api.openweathermap.org/data/2.5/forecast?q=${weatherValue}&appid=875237a179f3849c7b98272538507d81&units=imperial`;
     fetch(apiKey)
       .then((res) => res.json())
       .then((data) => {
@@ -47,7 +47,7 @@ window.addEventListener('load', function () {
             let img = document.createElement('img');
             img.setAttribute(
               'src',
-              `http://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`
+              `https://openweathermap.org/img/w/${data.list[i].weather[0].icon}.png`
             );
             let p1 = document.createElement('p');
             p1.classList.add('card-text');
@@ -72,7 +72,7 @@ window.addEventListener('load', function () {
 
   function getUVIndex(lat, lon) {
     fetch(
-      `http://api.openweathermap.org/data/2.5/uvi?appid=875237a179f3849c7b98272538507d81&lat=${lat}&lon=${lon}`
+      `https://api.openweathermap.org/data/2.5/uvi?appid=875237a179f3849c7b98272538507d81&lat=${lat}&lon=${lon}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -113,7 +113,7 @@ window.addEventListener('load', function () {
 
 
   function searchMain (weatherValue) {
-    var apiKey = `http://api.openweathermap.org/data/2.5/weather?q=${weatherValue}&appid=875237a179f3849c7b98272538507d81&units=imperial`;
+    var apiKey = `https://api.openweathermap.org/data/2.5/weather?q=${weatherValue}&appid=875237a179f3849c7b98272538507d81&units=imperial`;
     fetch(apiKey)
       .then((res) => res.json())
       .then((data) => {
@@ -145,7 +145,7 @@ window.addEventListener('load', function () {
         let img = document.createElement('img');
         img.setAttribute(
           'src',
-          `http://openweathermap.org/img/w/${data.weather[0].icon}.png`
+          `https://openweathermap.org/img/w/${data.weather[0].icon}.png`
         );
   
         title.appendChild(img);
