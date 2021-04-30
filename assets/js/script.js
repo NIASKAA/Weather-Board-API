@@ -171,7 +171,7 @@ window.addEventListener('load', function () {
 
     liTag.addEventListener('click', (e) => {
       if (e.target.tagName === 'LI') {
-        searchWeather(e.target.textContent);
+        searchMain(e.target.textContent);
       }
     });
     document.getElementById('history').appendChild(liTag);
@@ -195,6 +195,6 @@ window.addEventListener('load', function () {
     .addEventListener('click', getSearchVal);
 });
 
-document.body.style.backgroundImage = "url('/../images/background1.jpeg')";
+document.body.style.backgroundImage = "url('/images/background1.jpeg')";
 document.body.style.backgroundRepeat = "no-repeat";
 document.body.style.backgroundSize = "cover";
