@@ -195,6 +195,9 @@ window.addEventListener('load', function () {
     .addEventListener('click', getSearchVal);
 });
 
+
 document.body.style.backgroundImage = "url('/images/background1.jpeg')";
 document.body.style.backgroundRepeat = "no-repeat";
 document.body.style.backgroundSize = "cover";
+
+
