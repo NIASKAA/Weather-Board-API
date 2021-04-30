@@ -1,7 +1,3 @@
-document.body.style.backgroundImage = "url('../images/background1.jpeg')";
-document.body.style.backgroundRepeat = "no-repeat";
-document.body.style.backgroundSize = "cover";
-
 window.addEventListener('load', function () {
   let existingHistory;
   if (!JSON.parse(localStorage.getItem('history'))) {
@@ -198,3 +194,7 @@ window.addEventListener('load', function () {
     .querySelector('#search-button')
     .addEventListener('click', getSearchVal);
 });
+
+document.body.style.backgroundImage = "url('../images/background1.jpeg')";
+document.body.style.backgroundRepeat = "no-repeat";
+document.body.style.backgroundSize = "cover";
